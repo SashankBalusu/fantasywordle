@@ -1,0 +1,44 @@
+html {
+    font-family: 'Josefin Sans', sans-serif;}
+#signUp{
+    display: none;
+    
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    
+}
+#login {
+    display: block;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}
+.loginForm {
+    display: block;
+    width: 200px;
+    border-radius: 8px;
+    margin-top: 20px;
+    height: 30px;
+    font-size: 20px;
+    
+}
+input {
+    border: thin solid black;
+    text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
+}
+button {
+    border: none;
+    font-family: 'Josefin Sans', sans-serif;
+    display: block;
+}
+#submitLogin {
+    width: 208px;
+}
+#signUpButton {
+    width: 208px;
+}
+.header {
+    text-align: center;
+}

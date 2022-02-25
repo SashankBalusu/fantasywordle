@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type = "text/css" href = "css/mainpage.css"> </link>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id = "main">
+        <div id = "sidenav">
+            <div id = "sidenavCon">
+                <p class = "divider">Options</p>
+                <a id = "create" class = "options">Create Group</a>
+                <a id = "join" class = "options">Join Group</a>
+                <p id =  "groupsDiv"class = "divider">Groups</p>
+            </div>
+            
+
+
+        </div>
+        <div id = "content">
+            <div id = "createGroup"class = "formEl">
+                <form>
+                    <input placeholder = "Group name" id = "groupName" class = "formEl"></input>
+                    <label for = "privOrPub">Public?</label>
+                    <input name = "privOrPub" checked = "checked" type = "checkbox" id = "privOrPub"></input>
+                    <input id = "groupPass" class = "formEl"type = "text" placeholder="Group Password" ></input>
+                    <button type = "button"id = "submitGroupForm" class = "formEl">Submit</button>
+                </form>
+            </div>
+            <div id = "joinGroup">
+                    <input id = "searchGroups" type = "search" autocomplete="off"></input>
+                    <div id = "searchResults"> 
+
+                    </div>
+                
+                
+            </div>
+            <div id = "joinGroupConfo">
+                
+            </div>
+        </div>
+    </div>
+    <script type = "module" src = "js/mainpage.js"></script>
+</body>
+</html>

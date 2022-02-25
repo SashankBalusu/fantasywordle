@@ -1,0 +1,125 @@
+html {
+    font-family: 'Josefin Sans', sans-serif;
+}
+#main {
+    display: grid;
+    grid-template-rows: 20% 80%;
+    grid-template-areas: "sidenav content";
+}
+#sidenav {
+    display: grid;
+    position: fixed;
+    grid-area: sidenav;
+    background: #6aaa64;
+    height: 90%;
+    width: 20%;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+#content {
+    display: grid;
+    grid-area: content;
+}
+.divider {
+    display: block;
+    font-size: 20px;
+    color: white;
+    margin-top: 40px;
+    background: none;
+    margin-left: 20px; 
+}
+.options {
+    display: block;
+    font-size: 20px;
+    color: white;
+    /* margin-top: 60px; */
+    background: none;
+    margin-left: 40px;
+
+}
+#join {
+    margin-top: 20px;
+    /* margin-top: -250px; */
+    
+}
+#create {
+    margin-top: 30px;
+    /* margin-top: -140px; */
+}
+/* #groupsDiv {
+    margin-top: -180px;
+} */
+input {
+    border: thin solid black;
+    text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
+}
+form {
+    width: 200px;
+    border-radius: 8px;
+    margin-top: 20px;
+    height: 30px;
+    font-size: 20px;
+}
+#privOrPub {
+    margin-top: 20px;
+}
+.formEl {
+    display: block;
+    width: 200px;
+    border-radius: 8px;
+    margin-top: 20px;
+    height: 30px;
+    font-size: 20px;
+}
+#groupName {
+    border-radius: 8px;
+}
+#groupPass {
+    display: none;
+}
+#submitGroupForm {
+    background: rgb(224, 224, 224);
+}
+button {
+    font-family: 'Josefin Sans', sans-serif;
+
+}
+#createGroup {
+    display: none;
+}
+#joinGroup {
+    display:none;
+}
+#searchGroups {
+    margin-top: 20px;
+    border-radius: 8px;
+    height: 30px;
+    width: 400px;
+
+}
+.searchResultItem {
+    background: #6aaa64;
+    height: 30px;
+    border-radius: 8px;
+    width: 400px;
+}
+.searchResultContent {
+    width: 40px;
+    color: white;
+    line-height: 30px;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+#joinGroupConfo {
+    margin-top: 20px;
+    display: none;
+    background: #c9b458;
+    padding: 30px;
+    border-radius: 10px;
+    width: fit-content;
+    height: fit-content;
+}
+.changeBackgroundGreen {
+    background: #6aaa64 !important;
+}
