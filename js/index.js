@@ -72,7 +72,7 @@ submit.addEventListener("click", function(){
       username: username,
       email: email,
       password: password,
-      groups: {userGroups: ["hi"]}
+      groups: {userGroups: ["PLACEHOLDER"]}
       
     });
     const signUp = document.querySelector("#signUp")

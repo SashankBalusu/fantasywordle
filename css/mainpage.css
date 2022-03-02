@@ -15,6 +15,7 @@ html {
     width: 20%;
     border-radius: 8px;
     margin-top: 20px;
+    overflow-y:auto
 }
 #content {
     display: grid;
@@ -38,6 +39,11 @@ html {
 
 }
 #join {
+    margin-top: 20px;
+    /* margin-top: -250px; */
+    
+}
+#submitScores {
     margin-top: 20px;
     /* margin-top: -250px; */
     
@@ -122,4 +128,24 @@ button {
 }
 .changeBackgroundGreen {
     background: #6aaa64 !important;
+}
+#rankTable {
+    display: none;
+}
+div#rankTable {
+    margin: 20px auto;
+}
+table, th, td {
+
+    border:1px solid black;
+}
+#submitToday {
+    display: none;
+}
+#submitGuessForm {
+    margin: 0 auto;
+}
+#vedantgotafatty {
+    margin-left: 17vw;
+    width: max-content;
 }

@@ -8,6 +8,13 @@ function deleteAllChildNodes(parent){
     }
 
 }
+function hideChild(parentID){
+    var parentDiv = document.getElementById(parentID);
+    var children = parentDiv.children;
+    for(var i = 0; i < children.length; i++){
+        children[i].style.display = "none";
+    }
+}
 function createGroups(displayName){
     const dbRef = ref(getDatabase());
 
@@ -16,24 +23,105 @@ function createGroups(displayName){
             const sidenavCon = document.querySelector("#sidenavCon")
             let userGroups = snapshot.val()
             console.log(userGroups)
-            for (let i = 0; i < userGroups.length; i++){
-                let a = document.createElement("a")
-                a.id = userGroups[i]
-                a.textContent = userGroups[i]
-                a.classList.add("options")
-                a.style.marginTop = i ? "20px": "30px"
-                a.addEventListener("click", function(){
-                    let text = a.textContent
-                    populateGroupPage(text)
-                })
-                sidenavCon.appendChild(a)
-
+            if (!(userGroups[0] == "PLACEHOLDER")){
+                console.log("in")
+                for (let i = 0; i < userGroups.length; i++){
+                
+                    let a = document.createElement("a")
+                    a.id = userGroups[i]
+                    a.textContent = userGroups[i]
+                    a.classList.add("options")
+                    a.style.marginTop = i ? "20px": "30px"
+                    a.addEventListener("click", function(){
+                        let text = a.textContent
+                        populateGroupPage(text)
+                    })
+                    sidenavCon.appendChild(a)
+    
+                }
             }
+            
         }
     })
 }
 function populateGroupPage(groupName){
-    console.log(groupName)
+    
+    const dbRef = ref(getDatabase());
+    let groupsObjFromDatabase = {}
+    let usersObjFromDatabase = {}
+    let scoreByUser = {}
+    let scoreArrByUser = {}
+    const days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday", "Sunday"];
+
+    get(child(dbRef, "groups")).then((snapshot) => {
+        if (snapshot.exists()){
+            groupsObjFromDatabase = snapshot.val()
+            get(child(dbRef, "users")).then((snapshot) => {
+                if (snapshot.exists()){
+                    usersObjFromDatabase = snapshot.val()
+                    let groupMembers = groupsObjFromDatabase[groupName]["members"]
+
+                    for (let i = 0 ; i < groupMembers.length; i++){
+                        let scores = usersObjFromDatabase[groupMembers[i]]["scores"]
+                        let scoresArr = []
+                        for (let day of days){
+                            scoresArr.push(scores[day] ? parseInt(scores[day]["guesses"]) : 0)
+                            console.log(scores[day])
+                        }
+                        let totalGuesses = 0
+                        for (let score of scoresArr){
+                            totalGuesses += score
+                        }
+                        scoreByUser[groupMembers[i]] = totalGuesses
+                        scoreArrByUser[groupMembers[i]] = scoresArr
+
+                    }
+                    let scoreByUserSorted = Object.fromEntries(
+                        Object.entries(scoreByUser).sort(([, a], [, b]) => a-b)
+                      )
+                    let counter = 0
+                    const groupStats = document.querySelector("#groupStats")
+                    deleteAllChildNodes(groupStats)
+                    for (let key in scoreByUserSorted){
+                        counter++
+                        let tr = document.createElement("tr")
+                        let td = document.createElement("td")
+                        td.textContent = key
+                        tr.appendChild(td)
+                        let totalGuessCon = document.createElement("td")
+                        totalGuessCon.textContent = scoreByUser[key]
+                        tr.appendChild(totalGuessCon)
+                        let rank = document.createElement("td")
+                        rank.textContent = counter
+                        tr.appendChild(rank)
+                        let scoreByDayArr = scoreArrByUser[key]
+                        for (let currScore of scoreByDayArr){
+                            let currDayScore = document.createElement("td")
+                            currDayScore.textContent = currScore
+                            tr.appendChild(currDayScore)
+                        }
+                        groupStats.appendChild(tr)
+
+
+                    }
+                }
+                
+                
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+        
+        
+    }).catch((error) => {
+        console.error(error);
+    });
+
+    
+    hideChild("content")
+
+    const rankTable = document.querySelector("#rankTable")
+    rankTable.setAttribute("style", "display: block")
 }
 //add something to make user groups change in database after joining/creating
 
@@ -101,8 +189,10 @@ submitGroupForm.addEventListener("click", function(){
         get(child(dbRef, "users/" + displayName + "/groups")).then((info) => {
             if (info.exists()){
                 arr = info.val()["userGroups"]
-                if (arr[0] == "hi"){
+                console.log(arr[0])
+                if (arr[0] == "PLACEHOLDER"){
                     arr.pop()
+                    console.log("in")
                 }
                 console.log(arr)
                 arr[arr.length] = groupName.value
@@ -131,7 +221,7 @@ submitGroupForm.addEventListener("click", function(){
         get(child(dbRef, "users/" + displayName + "/groups")).then((info) => {
             if (info.exists()){
                 arr = info.val()["userGroups"]
-                if (arr[0] == "hi"){
+                if (arr[0] == "PLACEHOLDER"){
                     arr.pop()
                 }
                 console.log(arr)
@@ -152,21 +242,25 @@ submitGroupForm.addEventListener("click", function(){
     }
 })
 create.addEventListener("click", function(){
+    hideChild("content")
     const createGroup = document.querySelector("#createGroup")
     createGroup.setAttribute("style", "display: block")
-    const joinGroup = document.querySelector("#joinGroup")
-    joinGroup.setAttribute("style", "display: none;")
-    const joinGroupConfo = document.querySelector("#joinGroupConfo")
-    joinGroupConfo.setAttribute("style", "display: none")
+    // const joinGroup = document.querySelector("#joinGroup")
+    // joinGroup.setAttribute("style", "display: none;")
+    // const joinGroupConfo = document.querySelector("#joinGroupConfo")
+    // joinGroupConfo.setAttribute("style", "display: none")
 })
 const join = document.querySelector("#join")
 join.addEventListener("click", function(){
+    // const content = document.querySelector("#content")
+    // content.setAttribute("style", "display: none")
+    hideChild("content")
     const joinGroup = document.querySelector("#joinGroup")
     joinGroup.setAttribute("style", "display: block;")
-    const createGroup = document.querySelector("#createGroup")
-    createGroup.setAttribute("style", "display: none")
-    const joinGroupConfo = document.querySelector("#joinGroupConfo")
-    joinGroupConfo.setAttribute("style", "display: none")
+    // const createGroup = document.querySelector("#createGroup")
+    // createGroup.setAttribute("style", "display: none")
+    // const joinGroupConfo = document.querySelector("#joinGroupConfo")
+    // joinGroupConfo.setAttribute("style", "display: none")
 
     const searchGroups = document.querySelector("#searchGroups")
     searchGroups.oninput = findGroups
@@ -233,7 +327,7 @@ join.addEventListener("click", function(){
                                 get(child(dbRef, "users/" + displayName + "/groups")).then((info) => {
                                     if (info.exists()){
                                         arr = info.val()["userGroups"]
-                                        if (arr[0] == "hi"){
+                                        if (arr[0] == "PLACEHOLDER"){
                                             arr.pop()
                                         }
                                         arr[arr.length] = groupName
@@ -320,7 +414,7 @@ join.addEventListener("click", function(){
                                         get(child(dbRef, "users/" + displayName + "/groups")).then((info) => {
                                             if (info.exists()){
                                                 arr = info.val()["userGroups"]
-                                                if (arr[0] == "hi"){
+                                                if (arr[0] == "PLACEHOLDER"){
                                                     arr.pop()
                                                 }
                                                 arr[arr.length] = groupName
@@ -402,6 +496,36 @@ join.addEventListener("click", function(){
 
 
     }
+    
+
+})
+
+const submitScores = document.querySelector("#submitScores")
+submitScores.addEventListener("click", function(){
+    hideChild("content")
+    const submitToday = document.querySelector("#submitToday")
+    submitToday.setAttribute("style", "display: block")
+    const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    const d = new Date();
+    let day = weekday[d.getDay()];
+    const submitGuesses = document.querySelector("#submitGuesses")
+
+    submitGuesses.addEventListener("click", function(){
+        const guessesToday = document.querySelector("#guessesToday")
+        const guessAmount = guessesToday.value
+        if (guessesToday.value == ""){
+            return;
+        }
+        else if (guessesToday.value >7 || guessesToday.value < 1){
+            console.log("need valid")
+            return
+        }
+        const database = getDatabase(app);
+        set(ref(database, "users/" + displayName + "/scores/" + day), {
+            guesses: guessAmount
+            
+        });
+    })
     
 
 })

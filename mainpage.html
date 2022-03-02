@@ -17,6 +17,7 @@
                 <p class = "divider">Options</p>
                 <a id = "create" class = "options">Create Group</a>
                 <a id = "join" class = "options">Join Group</a>
+                <a id = "submitScores" class = "options">Submit Score</a>
                 <p id =  "groupsDiv"class = "divider">Groups</p>
             </div>
             
@@ -24,16 +25,16 @@
 
         </div>
         <div id = "content">
-            <div id = "createGroup"class = "formEl">
+            <div id = "createGroup"class = "formEl contentChild">
                 <form>
-                    <input placeholder = "Group name" id = "groupName" class = "formEl"></input>
+                    <input placeholder = "Group name" id = "groupName" class = "formEl" required = true></input>
                     <label for = "privOrPub">Public?</label>
                     <input name = "privOrPub" checked = "checked" type = "checkbox" id = "privOrPub"></input>
                     <input id = "groupPass" class = "formEl"type = "text" placeholder="Group Password" ></input>
-                    <button type = "button"id = "submitGroupForm" class = "formEl">Submit</button>
+                    <button type = "submit"id = "submitGroupForm" class = "formEl">Submit</button>
                 </form>
             </div>
-            <div id = "joinGroup">
+            <div id = "joinGroup" class = "contentChild">
                     <input id = "searchGroups" type = "search" autocomplete="off"></input>
                     <div id = "searchResults"> 
 
@@ -41,8 +42,59 @@
                 
                 
             </div>
-            <div id = "joinGroupConfo">
+            <div id = "joinGroupConfo"class = "contentChild">
                 
+            </div>
+            <div id = "submitToday" class = "contentChild">
+                <div id = "vedantgotafatty">
+                    <h2 >Guesses Today (7 if you didnt get it)</h2>
+                    <form id = "submitGuessForm">
+                        <input placeholder = "Guesses" id = "guessesToday" class = "formEl" type = "number" required></input>
+                        <button type = "submit"id = "submitGuesses" class = "formEl">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div id = "rankTable" class = "contentChild"> 
+                <table>
+                    <thead>
+                        <tr>
+
+                            <th>
+                                User
+                            </th>
+                            <th>
+                                Total guesses
+                            </th>
+                            <th>
+                                Rank
+                            </th>
+                            <th>
+                                Monday
+                            </th>
+                            <th>
+                                Tuesday
+                            </th>
+                            <th>
+                                Wednesday
+                            </th>
+                            <th>
+                                Thursday
+                            </th>
+                            <th>
+                                Friday
+                            </th>
+                            <th>
+                                Saturday
+                            </th>
+                            <th>
+                                Sunday
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id = "groupStats">
+                        
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
