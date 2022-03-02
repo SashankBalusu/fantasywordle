@@ -2,7 +2,6 @@ html {
     font-family: 'Josefin Sans', sans-serif;}
 #signUp{
     display: none;
-    
     width: 200px;
     height: 200px;
     margin: 0 auto;
@@ -38,6 +37,7 @@ button {
 }
 #signUpButton {
     width: 208px;
+    min-width: fit-content;
 }
 .header {
     text-align: center;
