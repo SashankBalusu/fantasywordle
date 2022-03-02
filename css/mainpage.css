@@ -145,7 +145,7 @@ table, th, td {
 #submitGuessForm {
     margin: 0 auto;
 }
-#vedantgotafatty {
+#guessFormWrapper, #joinGroup, #createGroup {
     margin-left: 17vw;
     width: max-content;
 }

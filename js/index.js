@@ -56,11 +56,44 @@ submit.addEventListener("click", function(){
     let email = user.value;
     let password = pass.value;
     username = username.value
+    if (username.trim() == "") {
+      alert("enter a valid username")
+      return
+    }
+    if (email.trim() == "") {
+      alert("enter a valid email")
+      return
+    }
+    if (password.length < 6){
+      alert("password must be over 6 characters")
+      return
+    }
+    const database = getDatabase(app);
+
+    const dbRef = ref(getDatabase());
+
+    get(ref(database, "users/" + username)).then((info) => {
+      if (!(info.exists())){
+        set(ref(database, "users/" + username), {
+          username: username,
+          email: email,
+          password: password,
+          groups: {userGroups: ["PLACEHOLDER"]}
+          
+        });
+      }
+      else {
+        alert("username already exists, pick another")
+        return
+      }
+      
+    }).catch((error) => {
+        console.error(error);
+    });
     createUserWithEmailAndPassword(auth, email, password, username)
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
-    const database = getDatabase(app);
     updateProfile(auth.currentUser, {
       displayName: username
     }).then(() => {
@@ -68,13 +101,8 @@ submit.addEventListener("click", function(){
     }).catch((error) => {
       console.log(error)
     });
-    set(ref(database, "users/" + username), {
-      username: username,
-      email: email,
-      password: password,
-      groups: {userGroups: ["PLACEHOLDER"]}
+    
       
-    });
     const signUp = document.querySelector("#signUp")
     signUp.setAttribute("style", "display: none")
     const login = document.querySelector("#login")

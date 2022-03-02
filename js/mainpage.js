@@ -169,6 +169,9 @@ const submitGroupForm = document.querySelector("#submitGroupForm")
 submitGroupForm.addEventListener("click", function(){
     const groupName = document.querySelector("#groupName")
     console.log(groupName.value)
+    if (groupName.value == ""){
+        return
+    }
     const privOrPub = document.querySelector("#privOrPub")
     const database = getDatabase(app);
 
