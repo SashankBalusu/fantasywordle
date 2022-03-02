@@ -178,6 +178,10 @@ submitGroupForm.addEventListener("click", function(){
     if (!(privOrPub.checked)){
         const groupPass = document.querySelector("#groupPass")
         console.log(groupPass.value)
+        if (groupPass.value.length < 1){
+            alert("enter a longer password")
+            return
+        }
         set(ref(database, "groups/" + groupName.value), {
         groupName: groupName.value,
         public: false,
@@ -208,6 +212,7 @@ submitGroupForm.addEventListener("click", function(){
         }).catch((error) => {
             console.error(error);
         });
+        createGroups(displayName)
         
     }
     else {
@@ -238,6 +243,8 @@ submitGroupForm.addEventListener("click", function(){
         }).catch((error) => {
             console.error(error);
         });
+        createGroups(displayName)
+
         
         
         
@@ -344,6 +351,8 @@ join.addEventListener("click", function(){
                                 }).catch((error) => {
                                     console.error(error);
                                 });
+                                createGroups(displayName)
+
                                 // update(ref(database, "users/" + displayName + "/groups" ), {
                                 //     members: groupsObj[groupName]["members"],
                                 // });
@@ -431,6 +440,8 @@ join.addEventListener("click", function(){
                                         }).catch((error) => {
                                             console.error(error);
                                         });
+                                        createGroups(displayName)
+
 
                                     }
                                     else {
@@ -516,7 +527,7 @@ submitScores.addEventListener("click", function(){
     submitGuesses.addEventListener("click", function(){
         const guessesToday = document.querySelector("#guessesToday")
         const guessAmount = guessesToday.value
-        if (guessesToday.value == ""){
+        if (guessesToday.value.trim() == ""){
             return;
         }
         else if (guessesToday.value >7 || guessesToday.value < 1){

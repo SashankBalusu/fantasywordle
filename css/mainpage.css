@@ -145,7 +145,7 @@ table, th, td {
 #submitGuessForm {
     margin: 0 auto;
 }
-#guessFormWrapper, #joinGroup, #createGroup {
+#guessFormWrapper, #joinGroup, #createGroup, #joinGroupConfo {
     margin-left: 17vw;
     width: max-content;
 }
