@@ -149,3 +149,8 @@ table, th, td {
     margin-left: 17vw;
     width: max-content;
 }
+#guessesToday {
+    min-height: 200px;
+    white-space: pre-wrap;
+    text-align: center;
+}

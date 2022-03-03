@@ -81,6 +81,34 @@ submit.addEventListener("click", function(){
           groups: {userGroups: ["PLACEHOLDER"]}
           
         });
+        createUserWithEmailAndPassword(auth, email, password, username)
+        .then((userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          updateProfile(auth.currentUser, {
+            displayName: username
+          }).then(() => {
+            console.log("created")
+          }).catch((error) => {
+            console.log(error)
+          });
+          
+            
+          const signUp = document.querySelector("#signUp")
+          signUp.setAttribute("style", "display: none")
+          const login = document.querySelector("#login")
+          login.setAttribute("style", "display:block")
+          // const db = getDatabase();
+          // let firebaseRef = app.database().ref("emails")
+          //firebaseRef.push("email")
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorMessage)
+          // ..
+      });
       }
       else {
         alert("username already exists, pick another")
@@ -90,34 +118,7 @@ submit.addEventListener("click", function(){
     }).catch((error) => {
         console.error(error);
     });
-    createUserWithEmailAndPassword(auth, email, password, username)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    updateProfile(auth.currentUser, {
-      displayName: username
-    }).then(() => {
-      console.log("created")
-    }).catch((error) => {
-      console.log(error)
-    });
     
-      
-    const signUp = document.querySelector("#signUp")
-    signUp.setAttribute("style", "display: none")
-    const login = document.querySelector("#login")
-    login.setAttribute("style", "display:block")
-    // const db = getDatabase();
-    // let firebaseRef = app.database().ref("emails")
-    //firebaseRef.push("email")
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorMessage)
-    // ..
-});
 })
 const submitLogin = document.querySelector("#submitLogin")
 submitLogin.addEventListener("click", function(){

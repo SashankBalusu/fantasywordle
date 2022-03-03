@@ -15,7 +15,7 @@ html {
 }
 .loginForm {
     display: block;
-    width: 200px;
+    width: 220px;
     border-radius: 8px;
     margin-top: 20px;
     height: 30px;
@@ -33,13 +33,22 @@ button {
     display: block;
 }
 #submitLogin {
-    width: 208px;
+    width: 225px;
 }
 #signUpButton {
-    width: 208px;
+    width: 225px;
     min-width: fit-content;
+    
 }
 .header {
     text-align: center;
+}
+#submit {
+    width: 225px;
+
+}
+#goback {
+    width: 225px;
+
 }
 

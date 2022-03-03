@@ -525,18 +525,27 @@ submitScores.addEventListener("click", function(){
     const submitGuesses = document.querySelector("#submitGuesses")
 
     submitGuesses.addEventListener("click", function(){
+        
         const guessesToday = document.querySelector("#guessesToday")
         const guessAmount = guessesToday.value
+        let trueGuesses = guessAmount.split(" ")[2].charAt(0)
+        if (trueGuesses == "X"){
+            trueGuesses = 7
+        }
+        else {
+            trueGuesses = parseInt(trueGuesses)
+        }
         if (guessesToday.value.trim() == ""){
+            alert("enter a valid response")
             return;
         }
-        else if (guessesToday.value >7 || guessesToday.value < 1){
+        else if (trueGuesses >7 || trueGuesses < 1){
             console.log("need valid")
             return
         }
         const database = getDatabase(app);
         set(ref(database, "users/" + displayName + "/scores/" + day), {
-            guesses: guessAmount
+            guesses: trueGuesses
             
         });
     })
