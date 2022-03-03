@@ -532,13 +532,20 @@ submitScores.addEventListener("click", function(){
         if (trueGuesses == "X"){
             trueGuesses = 7
         }
+        else if (isNaN(trueGuesses)){
+            alert("make sure you're posting from wordle")
+            return
+
+        }
         else {
             trueGuesses = parseInt(trueGuesses)
         }
+
         if (guessesToday.value.trim() == ""){
             alert("enter a valid response")
             return;
         }
+        
         else if (trueGuesses >7 || trueGuesses < 1){
             console.log("need valid")
             return
